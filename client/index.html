@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>E-Commerce</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./lib/bulma.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="https://unpkg.com/vue@2.2.6"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="lib/jquery-3.2.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+
+    <nav class="nav">
+
+      <div class="nav-left">
+        <h1 class="nav-item shoop">Shoop</h1>
+      </div>
+
+      <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+
+      <div id="nav" v-bind:class="classObject">
+        <a class="nav-item" id="sign-in" v-on:click="login">{{ message }}</a>
+        <a v-bind:class="classObject" id="sign-out" v-on:click="logout">{{ message }}</a>
+        <a class="nav-item has-icon checkout-btn is-hidden" id="hidden-cart" data-target="#model-login">Cart <span class="icon cart"><i class="fa fa-shopping-cart"></i></span></a>
+      </div>
+
+    </nav>
+
+    <div class="columns">
+
+      <div class="column is-9">
+
+        <div class="tile is-ancestor is-vertical">
+
+          <div class="tile is-parent header">
+            <div class="tile is-child image-header">
+              <img class="carousel-img is-inline" src="assets/img/blibli_redmi_26082016.jpg">
+            </div>
+          </div>
+
+          <div class="tile is-vertical">
+            <div class="tile is-parent p-category">
+              <div class="tile is-child c-category button is-primary is-outlined">
+                <span class="text-cat">Laptop</span> <span class="icon i-category"><i class="fa fa-laptop fa-fw"></i></span>
+              </div>
+              <div class="tile is-child category button is-primary is-outlined">
+                <span class="text-cat">Phone</span> <span class="icon i-category"><i class="fa fa-mobile fa-fw"></i></span>
+              </div>
+              <div class="tile is-child category button is-primary is-outlined">
+                <span class="text-cat">Bike</span> <span class="icon i-category"><i class="fa fa-motorcycle fa-fw"></i></span>
+              </div>
+              <div class="tile is-child c-category button is-primary is-outlined">
+                <span class="text-cat">Camera</span> <span class="icon i-category"><i class="fa fa-camera fa-fw"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tile is-parent category-title">
+            <p id="category-title" class="title">Phone</p>
+          </div>
+
+          <div class="tile is-parent items">
+            <div class="columns is-multiline is-mobile each-category">
+              <div class="column is-one-third">
+                <p id="phone-name" class="title">Lenovo A-3000</p>
+                <p class="subtitle">16GB ROM 2GB RAM</p>
+                <figure id="phone" class="image is-1by1">
+                  <img src="assets/img/lenovo-phone.png" alt="phone">
+                </figure>
+                <p id="price">Rp. <span>1.800.000</span></p>
+                <button class="button is-primary add-to-cart">Add To Cart</button>
+              </div>
+              <div class="column is-one-third">
+                <p id="phone-name" class="title">OnePlus One</p>
+                <p class="subtitle">64GB ROM 3GB RAM</p>
+                <figure id="phone" class="image is-1by1">
+                  <img src="assets/img/oneplus-phone.jpg" alt="phone">
+                </figure>
+                <p id="price">Rp. <span>4.800.000</span></p>
+                <button class="button is-primary add-to-cart">Add To Cart</button>
+              </div>
+              <div class="column is-one-third">
+                <p id="phone-name" class="title">Samsung S Advance</p>
+                <p class="subtitle">16GB ROM 1GB RAM</p>
+                <figure id="phone" class="image is-1by1">
+                  <img src="assets/img/samsung-phone.jpg" alt="phone">
+                </figure>
+                <p id="price">Rp. <span>2.100.000</span></p>
+                <button class="button is-primary add-to-cart">Add To Cart</button>
+              </div>
+              <div class="column is-one-third">
+                <p id="phone-name" class="title">Xiaomi Redmi 3S</p>
+                <p id="description" class="subtitle">32GB ROM 3GB RAM</p>
+                <figure id="phone" class="image is-1by1">
+                  <img src="assets/img/xiaomi-phone.jpg" alt="phone">
+                </figure>
+                <p id="price">Rp. <span>2.250.000</span></p>
+                <button class="button is-primary add-to-cart">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="column is-3">
+
+        <div class="panel">
+          <p class="panel-heading has-icon">Cart <span class="icon cart"><i class="fa fa-shopping-cart"></i></span></p>
+          <div class="panel-block payment">
+            <p class="has-icon">Total Payment : <span class="rupiah">Rp. </span><span class="money">0</span></p>
+          </div>
+          <div class="panel-block">
+            <button class="button is-primary is-outlined is-fullwidth modal-button checkout-btn" data-target="#modal-login">Checkout</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="modal-login" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <table class="table is-narrow">
+            <thead>
+              <th>No</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+
+        </div>
+      </div>
+      <button class="modal-close"></button>
+    </div>
+
+    <div id="modal-signup" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+
+        </div>
+      </div>
+      <button class="modal-close"></button>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>Put something you want to type here and tell somebody about it.</p>
+          <div class="has-icon">
+            Github : <a href="https://github.com/andrasat" target="_blank"><span class="icon is-medium"><i class="fa fa-github"></i></span></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script/script.js"></script>
+  </body>
+</html>
