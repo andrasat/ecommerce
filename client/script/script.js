@@ -34,12 +34,45 @@ function testAPI() {
   });
 }
 
-let FBlogin = new Vue({
-  el: '#sign-in',
+let navMenu = new Vue({
+  el: '#nav',
   data : {
-    message : ''
+    isActive : false,
+    isHidden : true,
+    loginMsg : '',
+    logoutMsg : 'Logout'
+  },
+  computed : {
+    classObjectNav : function() {
+      return {
+        'nav-right' : true,
+        'nav-menu' : true,
+        'is-active' : this.isActive
+      }
+    },
+    classObjectLogout : function() {
+      return {
+        'nav-item': true,
+        'is-hidden': this.checkLogin()
+      }
+    },
+    classObjectCart : function() {
+      return {
+        'nav-item' : true,
+        'has-icon' : true,
+        'is-hidden': this.isHidden
+      }
+    }
   },
   methods : {
+    resize : function() {
+      console.log(window.innerWidth)
+      if($(window).width() < 750) {
+        this.isHidden = false
+      } else {
+        this.isHidden = true
+      }
+    },
     login : function() {
       FB.login(function(res){
         console.log(res.status)
@@ -62,70 +95,31 @@ let FBlogin = new Vue({
         } else {
           console.log('Login error')
         }
-      }, {scope: 'public_profile'});
+      }, {scope: 'public_profile'})
     },
     checkLogin : function() {
       if(localStorage.token) {
-        this.message = 'You are logged in'
+        this.loginMsg = 'You are logged in'
         return false
       } else {
-        this.message = 'Login with Facebook'
+        this.loginMsg = 'Login with Facebook'
         return true
       }
-    }
-  },
-  mounted : function() {
-    this.checkLogin()
-  }
-})
-
-let FBlogout = new Vue({
-  el: '#sign-out',
-  data : {
-    message : 'Logout'
-  },
-  computed : {
-    classObject : function() {
-      return {
-        'nav-item': true,
-        'is-hidden': FBlogin.checkLogin()
-      }
-    }
-  },
-  methods : {
+    },
     logout : function() {
       console.log('clicked')
       FB.logout(function() {
         localStorage.removeItem('token')
         window.location.reload()
       })
-    }
-  }
-})
-
-let navMenu = new Vue({
-  el: '#nav',
-  data : {
-    isActive : false
-  },
-  computed : {
-    classObject : function() {
-      return {
-        'nav-right' : true,
-        'nav-menu' : true,
-        'is-active' : this.isActive
-      }
+    },
+    toggleMenu : function() {
+      $('.nav-toggle')
+      this.isActive = !this.isActive
     }
   },
-  methods : {
-    resize : function() {
-      console.log(window.innerWidth)
-      if($(window).width() < 750) {
-        this.isActive = true
-      } else {
-        this.isActive = false
-      }
-    }
+  mounted : function() {
+    this.checkLogin()
   }
 })
 

@@ -25,10 +25,10 @@
         <span></span>
       </span>
 
-      <div id="nav" v-bind:class="classObject">
-        <a class="nav-item" id="sign-in" v-on:click="login">{{ message }}</a>
-        <a v-bind:class="classObject" id="sign-out" v-on:click="logout">{{ message }}</a>
-        <a class="nav-item has-icon checkout-btn is-hidden" id="hidden-cart" data-target="#model-login">Cart <span class="icon cart"><i class="fa fa-shopping-cart"></i></span></a>
+      <div id="nav" v-bind:class="classObjectNav">
+        <a class="nav-item" v-on:click="login">{{ loginMsg }}</a>
+        <a v-bind:class="classObjectLogout" v-on:click="logout">{{ logoutMsg }}</a>
+        <a v-bind:class="classObjectCart" v-on:click="" data-target="#model-login">Cart <span class="icon cart"><i class="fa fa-shopping-cart"></i></span></a>
       </div>
 
     </nav>
